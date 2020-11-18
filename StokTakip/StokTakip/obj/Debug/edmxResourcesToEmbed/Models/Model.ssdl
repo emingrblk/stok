@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StokTakipDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Barkod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BarcodNo" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Stok">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StokSayisi" Type="float" />
+    <Property Name="UrunId" Type="int" />
+    <Property Name="StokTuru" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DermojetNo" Type="varchar" MaxLength="50" />
+    <Property Name="UrunIsmi" Type="varchar" MaxLength="500" />
+    <Property Name="Adet" Type="float" />
+  </EntityType>
+  <EntityType Name="UrunListe">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunId" Type="int" />
+    <Property Name="BarkodId" Type="int" />
+  </EntityType>
+  <EntityType Name="UrunTakip">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tur" Type="varchar" MaxLength="50" />
+    <Property Name="Tarih" Type="datetime" />
+    <Property Name="BarcodId" Type="int" />
+    <Property Name="AlternatifUrunId" Type="int" />
+    <Property Name="Adet" Type="float" />
+    <Property Name="ToplamAdet" Type="float" />
+    <Property Name="Maliyet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SonKullanımTarihi" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_UrunListe_Barkod">
+    <End Role="Barkod" Type="Self.Barkod" Multiplicity="0..1" />
+    <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barkod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UrunListe">
+        <PropertyRef Name="BarkodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunListe_Urun">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UrunListe">
+        <PropertyRef Name="UrunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StokTakipDbModelStoreContainer">
+    <EntitySet Name="Barkod" EntityType="Self.Barkod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stok" EntityType="Self.Stok" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UrunListe" EntityType="Self.UrunListe" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UrunTakip" EntityType="Self.UrunTakip" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_UrunListe_Barkod" Association="Self.FK_UrunListe_Barkod">
+      <End Role="Barkod" EntitySet="Barkod" />
+      <End Role="UrunListe" EntitySet="UrunListe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunListe_Urun" Association="Self.FK_UrunListe_Urun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="UrunListe" EntitySet="UrunListe" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StokTakipDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Barkod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BarcodNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UrunListe" Relationship="Self.FK_UrunListe_Barkod" FromRole="Barkod" ToRole="UrunListe" />
+  </EntityType>
+  <EntityType Name="Stok">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StokSayisi" Type="Double" />
+    <Property Name="UrunId" Type="Int32" />
+    <Property Name="StokTuru" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DermojetNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UrunIsmi" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Adet" Type="Double" />
+    <NavigationProperty Name="UrunListe" Relationship="Self.FK_UrunListe_Urun" FromRole="Urun" ToRole="UrunListe" />
+  </EntityType>
+  <EntityType Name="UrunListe">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunId" Type="Int32" />
+    <Property Name="BarkodId" Type="Int32" />
+    <NavigationProperty Name="Barkod" Relationship="Self.FK_UrunListe_Barkod" FromRole="UrunListe" ToRole="Barkod" />
+    <NavigationProperty Name="Urun" Relationship="Self.FK_UrunListe_Urun" FromRole="UrunListe" ToRole="Urun" />
+  </EntityType>
+  <EntityType Name="UrunTakip">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Tarih" Type="DateTime" Precision="3" />
+    <Property Name="BarcodId" Type="Int32" />
+    <Property Name="AlternatifUrunId" Type="Int32" />
+    <Property Name="Adet" Type="Double" />
+    <Property Name="ToplamAdet" Type="Double" />
+    <Property Name="Maliyet" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SonKullanımTarihi" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_UrunListe_Barkod">
+    <End Role="Barkod" Type="Self.Barkod" Multiplicity="0..1" />
+    <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barkod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UrunListe">
+        <PropertyRef Name="BarkodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunListe_Urun">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UrunListe">
+        <PropertyRef Name="UrunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StokTakipDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Barkod" EntityType="Self.Barkod" />
+    <EntitySet Name="Stok" EntityType="Self.Stok" />
+    <EntitySet Name="Urun" EntityType="Self.Urun" />
+    <EntitySet Name="UrunListe" EntityType="Self.UrunListe" />
+    <EntitySet Name="UrunTakip" EntityType="Self.UrunTakip" />
+    <AssociationSet Name="FK_UrunListe_Barkod" Association="Self.FK_UrunListe_Barkod">
+      <End Role="Barkod" EntitySet="Barkod" />
+      <End Role="UrunListe" EntitySet="UrunListe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunListe_Urun" Association="Self.FK_UrunListe_Urun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="UrunListe" EntitySet="UrunListe" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

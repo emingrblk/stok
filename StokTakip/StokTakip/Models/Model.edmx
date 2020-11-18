@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StokTakipDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Barkod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BarcodNo" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StokSayisi" Type="float" />
+          <Property Name="UrunId" Type="int" />
+          <Property Name="StokTuru" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Urun">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DermojetNo" Type="varchar" MaxLength="50" />
+          <Property Name="UrunIsmi" Type="varchar" MaxLength="500" />
+          <Property Name="Adet" Type="float" />
+        </EntityType>
+        <EntityType Name="UrunListe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunId" Type="int" />
+          <Property Name="BarkodId" Type="int" />
+        </EntityType>
+        <EntityType Name="UrunTakip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tur" Type="varchar" MaxLength="50" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="BarcodId" Type="int" />
+          <Property Name="AlternatifUrunId" Type="int" />
+          <Property Name="Adet" Type="float" />
+          <Property Name="ToplamAdet" Type="float" />
+          <Property Name="Maliyet" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SonKullanımTarihi" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_UrunListe_Barkod">
+          <End Role="Barkod" Type="Self.Barkod" Multiplicity="0..1" />
+          <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barkod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UrunListe">
+              <PropertyRef Name="BarkodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UrunListe_Urun">
+          <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+          <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urun">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UrunListe">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StokTakipDbModelStoreContainer">
+          <EntitySet Name="Barkod" EntityType="Self.Barkod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stok" EntityType="Self.Stok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrunListe" EntityType="Self.UrunListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrunTakip" EntityType="Self.UrunTakip" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UrunListe_Barkod" Association="Self.FK_UrunListe_Barkod">
+            <End Role="Barkod" EntitySet="Barkod" />
+            <End Role="UrunListe" EntitySet="UrunListe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UrunListe_Urun" Association="Self.FK_UrunListe_Urun">
+            <End Role="Urun" EntitySet="Urun" />
+            <End Role="UrunListe" EntitySet="UrunListe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StokTakipDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Barkod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BarcodNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UrunListe" Relationship="Self.FK_UrunListe_Barkod" FromRole="Barkod" ToRole="UrunListe" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StokSayisi" Type="Double" />
+          <Property Name="UrunId" Type="Int32" />
+          <Property Name="StokTuru" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Urun">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DermojetNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UrunIsmi" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Adet" Type="Double" />
+          <NavigationProperty Name="UrunListe" Relationship="Self.FK_UrunListe_Urun" FromRole="Urun" ToRole="UrunListe" />
+        </EntityType>
+        <EntityType Name="UrunListe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunId" Type="Int32" />
+          <Property Name="BarkodId" Type="Int32" />
+          <NavigationProperty Name="Barkod" Relationship="Self.FK_UrunListe_Barkod" FromRole="UrunListe" ToRole="Barkod" />
+          <NavigationProperty Name="Urun" Relationship="Self.FK_UrunListe_Urun" FromRole="UrunListe" ToRole="Urun" />
+        </EntityType>
+        <EntityType Name="UrunTakip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="BarcodId" Type="Int32" />
+          <Property Name="AlternatifUrunId" Type="Int32" />
+          <Property Name="Adet" Type="Double" />
+          <Property Name="ToplamAdet" Type="Double" />
+          <Property Name="Maliyet" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SonKullanımTarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_UrunListe_Barkod">
+          <End Role="Barkod" Type="Self.Barkod" Multiplicity="0..1" />
+          <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barkod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UrunListe">
+              <PropertyRef Name="BarkodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UrunListe_Urun">
+          <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+          <End Role="UrunListe" Type="Self.UrunListe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urun">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UrunListe">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StokTakipDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Barkod" EntityType="Self.Barkod" />
+          <EntitySet Name="Stok" EntityType="Self.Stok" />
+          <EntitySet Name="Urun" EntityType="Self.Urun" />
+          <EntitySet Name="UrunListe" EntityType="Self.UrunListe" />
+          <EntitySet Name="UrunTakip" EntityType="Self.UrunTakip" />
+          <AssociationSet Name="FK_UrunListe_Barkod" Association="Self.FK_UrunListe_Barkod">
+            <End Role="Barkod" EntitySet="Barkod" />
+            <End Role="UrunListe" EntitySet="UrunListe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UrunListe_Urun" Association="Self.FK_UrunListe_Urun">
+            <End Role="Urun" EntitySet="Urun" />
+            <End Role="UrunListe" EntitySet="UrunListe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StokTakipDbModelStoreContainer" CdmEntityContainer="StokTakipDbEntities">
+          <EntitySetMapping Name="Barkod">
+            <EntityTypeMapping TypeName="StokTakipDbModel.Barkod">
+              <MappingFragment StoreEntitySet="Barkod">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BarcodNo" ColumnName="BarcodNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stok">
+            <EntityTypeMapping TypeName="StokTakipDbModel.Stok">
+              <MappingFragment StoreEntitySet="Stok">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StokSayisi" ColumnName="StokSayisi" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="StokTuru" ColumnName="StokTuru" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urun">
+            <EntityTypeMapping TypeName="StokTakipDbModel.Urun">
+              <MappingFragment StoreEntitySet="Urun">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DermojetNo" ColumnName="DermojetNo" />
+                <ScalarProperty Name="UrunIsmi" ColumnName="UrunIsmi" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrunListe">
+            <EntityTypeMapping TypeName="StokTakipDbModel.UrunListe">
+              <MappingFragment StoreEntitySet="UrunListe">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="BarkodId" ColumnName="BarkodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrunTakip">
+            <EntityTypeMapping TypeName="StokTakipDbModel.UrunTakip">
+              <MappingFragment StoreEntitySet="UrunTakip">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tur" ColumnName="Tur" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="BarcodId" ColumnName="BarcodId" />
+                <ScalarProperty Name="AlternatifUrunId" ColumnName="AlternatifUrunId" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+                <ScalarProperty Name="ToplamAdet" ColumnName="ToplamAdet" />
+                <ScalarProperty Name="Maliyet" ColumnName="Maliyet" />
+                <ScalarProperty Name="SonKullanımTarihi" ColumnName="SonKullanımTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

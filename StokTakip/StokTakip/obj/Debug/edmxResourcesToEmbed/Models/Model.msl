@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StokTakipDbModelStoreContainer" CdmEntityContainer="StokTakipDbEntities">
+    <EntitySetMapping Name="Barkod">
+      <EntityTypeMapping TypeName="StokTakipDbModel.Barkod">
+        <MappingFragment StoreEntitySet="Barkod">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BarcodNo" ColumnName="BarcodNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stok">
+      <EntityTypeMapping TypeName="StokTakipDbModel.Stok">
+        <MappingFragment StoreEntitySet="Stok">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StokSayisi" ColumnName="StokSayisi" />
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="StokTuru" ColumnName="StokTuru" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Urun">
+      <EntityTypeMapping TypeName="StokTakipDbModel.Urun">
+        <MappingFragment StoreEntitySet="Urun">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DermojetNo" ColumnName="DermojetNo" />
+          <ScalarProperty Name="UrunIsmi" ColumnName="UrunIsmi" />
+          <ScalarProperty Name="Adet" ColumnName="Adet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UrunListe">
+      <EntityTypeMapping TypeName="StokTakipDbModel.UrunListe">
+        <MappingFragment StoreEntitySet="UrunListe">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="BarkodId" ColumnName="BarkodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UrunTakip">
+      <EntityTypeMapping TypeName="StokTakipDbModel.UrunTakip">
+        <MappingFragment StoreEntitySet="UrunTakip">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Tur" ColumnName="Tur" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="BarcodId" ColumnName="BarcodId" />
+          <ScalarProperty Name="AlternatifUrunId" ColumnName="AlternatifUrunId" />
+          <ScalarProperty Name="Adet" ColumnName="Adet" />
+          <ScalarProperty Name="ToplamAdet" ColumnName="ToplamAdet" />
+          <ScalarProperty Name="Maliyet" ColumnName="Maliyet" />
+          <ScalarProperty Name="SonKullanımTarihi" ColumnName="SonKullanımTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

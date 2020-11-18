@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Giriş Yap";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="tr" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="tr" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>TodoList-503</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Preview page of Metronic Admin Theme #1 for " name="description" />
+    <meta content="" name="author" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="~/Content/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body class=" login" cz-shortcut-listen="true">
+   
+    <div class="logo">
+        <a href="index.html">
+            <img src="/Content/assets/pages/img/logo-big.png" alt="">
+        </a>
+    </div>
+
+    <div class="content">
+        <form action="/Account/Login?ReturnUrl=%2F" class="form-horizontal" method="post" role="form">
+            <input name="__RequestVerificationToken" type="hidden" value="ZPYMxShACLn-YNGWUwvYObLaerRwSF1JQgw3kifZT2rtwUmMeGQp76ZxWGAk1m97uOOXN98j6t8e1VeY8Aug7KW3_YorzUW1pV6VDkK74fA1">            <h3 class="form-title">Kullanıcı Girişi</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span>Kullanıcı adı ve şifre girin.</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9" for="Email">Email</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input class="form-control placeholder-no-fix" data-val="true" data-val-email="Email alanı geçerli bir e-posta adresi değil." data-val-required="Email alanı gereklidir." id="Email" name="Email" placeholder="E-Posta" type="text" value="">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9" for="Password">Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input class="form-control placeholder-no-fix" data-val="true" data-val-required="Password alanı gereklidir." id="Password" name="Password" placeholder="Şifre" type="password">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-actions">
+                <div>
+                    <label class="rememberme mt-checkbox mt-checkbox-outline">
+                        <input type="checkbox" name="remember" value="1">Beni Hatırla
+                        <span></span>
+                    </label>
+                </div>
+                <input type="submit" value="Giriş Yap" class="btn green pull-right">
+            </div>
+            <div class="forget-password">
+                <h4>Şifrenizi mi unuttunuz?</h4>
+                <p>
+                    Şifrenizi sıfırlamak için...
+                    <a href="/Account/ForgotPassword" id="forget-password" target="_blank">Buraya</a>Tıklayın.
+                </p>
+            </div>
+        </form>
+    </div>
+   
+    <div class="copyright"> 2020; </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
